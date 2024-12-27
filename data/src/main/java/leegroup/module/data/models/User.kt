@@ -1,6 +1,5 @@
 package leegroup.module.data.models
 
-import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,7 +9,6 @@ import leegroup.module.domain.models.UserModel
 
 @Serializable
 @Entity
-@Keep
 data class User(
     @PrimaryKey
     @SerialName("id")
