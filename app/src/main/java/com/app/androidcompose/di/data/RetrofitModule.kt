@@ -7,7 +7,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Qualifier
-import javax.inject.Singleton
 import kotlinx.serialization.json.Json
 import leegroup.module.data.remote.services.ApiService
 import okhttp3.MediaType.Companion.toMediaType
@@ -34,7 +33,6 @@ class RetrofitModule {
     @Retention(AnnotationRetention.BINARY)
     annotation class AppRetrofit
 
-    @Singleton
     @Provides
     @AppRetrofit
     fun provideAppRetrofit(
