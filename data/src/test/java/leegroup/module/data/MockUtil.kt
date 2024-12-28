@@ -2,8 +2,12 @@ package leegroup.module.data
 
 import io.mockk.every
 import io.mockk.mockk
+import leegroup.module.data.models.GitUser
+import leegroup.module.data.models.GitUserDetail
 import leegroup.module.data.models.User
 import leegroup.module.domain.models.Error
+import leegroup.module.domain.models.GitUserDetailModel
+import leegroup.module.domain.models.GitUserModel
 import leegroup.module.domain.models.UserModel
 import okhttp3.ResponseBody
 import retrofit2.HttpException
@@ -60,6 +64,73 @@ object MockUtil {
             id = 2,
             firstName = "Nick",
             lastName = "Do"
+        )
+    )
+
+    const val login = "longdt57"
+
+    val gitUserDetail = GitUserDetail(
+        id = 8809113,
+        login = login,
+        avatarUrl = "https://avatars.githubusercontent.com/u/8809113?v=4",
+        htmlUrl = "https://github.com/longdt57",
+        location = "Hanoi",
+        followers = 100_000,
+        following = 50_000
+    )
+
+    val gitUserDetailModel = GitUserDetailModel(
+        id = 8809113,
+        login = login,
+        avatarUrl = "https://avatars.githubusercontent.com/u/8809113?v=4",
+        htmlUrl = "https://github.com/longdt57",
+        location = "Hanoi",
+        followers = 100_000,
+        following = 50_000
+    )
+
+    const val since = 0
+    const val perPage = 3
+
+    val sampleGitUsers = listOf(
+        GitUser(
+            id = 1,
+            login = "longdt57",
+            avatarUrl = "https://avatars.githubusercontent.com/u/1?v=4",
+            htmlUrl = "https://github.com/longdt57"
+        ),
+        GitUser(
+            id = 2,
+            login = "defunkt",
+            avatarUrl = "https://avatars.githubusercontent.com/u/2?v=4",
+            htmlUrl = "https://github.com/defunkt"
+        ),
+        GitUser(
+            id = 3,
+            login = "pjhyett",
+            avatarUrl = "https://avatars.githubusercontent.com/u/3?v=4",
+            htmlUrl = "https://github.com/pjhyett"
+        )
+    )
+
+    val sampleGitUserModels = listOf(
+        GitUserModel(
+            id = 1,
+            login = "longdt57",
+            avatarUrl = "https://avatars.githubusercontent.com/u/1?v=4",
+            htmlUrl = "https://github.com/longdt57"
+        ),
+        GitUserModel(
+            id = 2,
+            login = "defunkt",
+            avatarUrl = "https://avatars.githubusercontent.com/u/2?v=4",
+            htmlUrl = "https://github.com/defunkt"
+        ),
+        GitUserModel(
+            id = 3,
+            login = "pjhyett",
+            avatarUrl = "https://avatars.githubusercontent.com/u/3?v=4",
+            htmlUrl = "https://github.com/pjhyett"
         )
     )
 }
