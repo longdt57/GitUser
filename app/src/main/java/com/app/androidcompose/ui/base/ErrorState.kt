@@ -14,6 +14,8 @@ sealed interface ErrorState {
         val secondaryRes: Int? get() = null
     }
 
+    data object Common : MessageError
+
     data class Network(
         override val errorCode: Int? = null,
         override val iconRes: Int? = null,
