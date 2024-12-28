@@ -24,6 +24,14 @@ fun <T> flowTransform(@BuilderInference block: suspend FlowCollector<T>.() -> T)
         .onFailure { exception -> throw exception.mapError() }
 }
 
+suspend fun <T> transform(block: suspend () -> T): T {
+    return runCatching {
+        block()
+    }.getOrElse { exception ->
+        throw exception.mapError()
+    }
+}
+
 private fun Throwable.mapError(): Throwable {
     return when (this) {
         is UnknownHostException,
