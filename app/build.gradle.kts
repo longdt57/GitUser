@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.serialization)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.google.service)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.pref)
     alias(libs.plugins.firebase.app.distribution)

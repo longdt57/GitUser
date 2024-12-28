@@ -3,9 +3,8 @@ package leegroup.module.data
 import io.mockk.every
 import io.mockk.mockk
 import leegroup.module.data.models.User
-import leegroup.module.data.models.mapToDomain
-import leegroup.module.data.remote.models.responses.ErrorResponse
-import leegroup.module.data.remote.models.responses.mapToError
+import leegroup.module.domain.models.Error
+import leegroup.module.domain.models.UserModel
 import okhttp3.ResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
@@ -33,12 +32,10 @@ object MockUtil {
             return httpException
         }
 
-    val errorResponse = ErrorResponse(
+    val error = Error(
         message = "message",
         code = 1
     )
-
-    val error = errorResponse.mapToError()
 
     val users = listOf(
         User(
@@ -53,5 +50,16 @@ object MockUtil {
         )
     )
 
-    val userModels = this.users.map { it.mapToDomain() }
+    val userModels = listOf(
+        UserModel(
+            id = 1,
+            firstName = "Logan",
+            lastName = "Do"
+        ),
+        UserModel(
+            id = 2,
+            firstName = "Nick",
+            lastName = "Do"
+        )
+    )
 }

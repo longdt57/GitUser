@@ -37,6 +37,7 @@ timber = "5.0.1"
 turbine = "0.13.0"
 workRuntimeKtx = "2.9.1"
 coroutineTest = "1.8.1"
+googleService = "4.4.2"
 crashlytic = "3.0.2"
 firebasePref = "1.4.2"
 appDistribution = "5.0.0"
@@ -126,6 +127,7 @@ serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref 
 google-dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid"}
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+google-service = { id = "com.google.gms.google-services", version.ref = "googleService" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytic" }
 firebase-pref = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePref" }
 firebase-app-distribution = { id = "com.google.firebase.appdistribution", version.ref = "appDistribution" }

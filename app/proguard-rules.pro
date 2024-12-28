@@ -19,9 +19,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-
--dontwarn java.lang.invoke.StringConcatFactory
-
--keepclassmembers class com.app.androidcompose.data.models.** { *; }
--keepclassmembers class com.app.androidcompose.data.remote.models.requests.** { *; }
--keepclassmembers class com.app.androidcompose.data.remote.models.responses.** { *; }

@@ -1,31 +1,19 @@
 package com.app.androidcompose
 
-import leegroup.module.data.models.User
-import leegroup.module.data.models.mapToDomain
-import leegroup.module.data.remote.models.responses.ErrorResponse
-import leegroup.module.data.remote.models.responses.mapToError
+import leegroup.module.domain.models.UserModel
 
 object MockUtil {
 
-    val errorResponse = ErrorResponse(
-        message = "message",
-        code = 1
-    )
-
-    val errorD = errorResponse.mapToError()
-
-    val users = listOf(
-        User(
+    val userModels = listOf(
+        UserModel(
             id = 1,
             firstName = "Logan",
             lastName = "Do"
         ),
-        User(
+        UserModel(
             id = 2,
             firstName = "Nick",
             lastName = "Do"
         )
     )
-
-    val userModels = users.map { it.mapToDomain() }
 }
