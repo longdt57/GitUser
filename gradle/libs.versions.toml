@@ -13,7 +13,6 @@ coroutineTest = "1.8.1"
 coroutines = "1.8.1"
 datastorePreferences = "1.1.1"
 espressoCore = "3.6.1"
-googleService = "4.4.2"
 hiltAndroid = "2.51.1"
 hiltNavigationCompose = "1.2.0"
 javaInject = "1"
@@ -111,7 +110,6 @@ serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref 
 google-dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid"}
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-google-service = { id = "com.google.gms.google-services", version.ref = "googleService" }
 navigation-safeargs = { id = "androidx.navigation.safeargs", version.ref = "safeargs" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }

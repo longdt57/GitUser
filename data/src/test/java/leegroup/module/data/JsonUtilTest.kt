@@ -14,7 +14,7 @@ class JsonUtilTest {
         val json = """{"id":1,"firstName":"John","lastName":"Doe"}"""
 
         // Act
-        val result = JsonUtil.decodeFromString<UserTest>(json)
+        val result = JsonUtil.decodeFromString<TestUser>(json)
 
         // Assert
         assertNotNull(result)
@@ -29,7 +29,7 @@ class JsonUtilTest {
         val invalidJson = """{"id":1,"firstName":"John","lastName":}"""
 
         // Act
-        val result = JsonUtil.decodeFromString<UserTest>(invalidJson)
+        val result = JsonUtil.decodeFromString<TestUser>(invalidJson)
 
         // Assert
         assertNull(result)
@@ -41,7 +41,7 @@ class JsonUtilTest {
         val json = """{"name":"John","age":30}"""
 
         // Act
-        val result = JsonUtil.decodeFromString<UserTest>(json)
+        val result = JsonUtil.decodeFromString<TestUser>(json)
 
         // Assert
         assertNull(result)
@@ -50,7 +50,7 @@ class JsonUtilTest {
     @Test
     fun `encodeToString should return valid JSON for User`() {
         // Arrange
-        val user = UserTest(1, "Jane", "Doe")
+        val user = TestUser(1, "Jane", "Doe")
 
         // Act
         val result = JsonUtil.encodeToString(user)
