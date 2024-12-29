@@ -8,11 +8,8 @@ import leegroup.module.domain.models.Error
 data class ErrorResponse(
     @SerialName("message")
     val message: String,
-    @SerialName("code")
-    val code: Int,
 )
 
 fun ErrorResponse.mapToError() = Error(
-    message = message,
-    code = code
+    message = message
 )

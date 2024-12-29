@@ -4,6 +4,7 @@ import leegroup.module.data.models.GitUser
 import leegroup.module.data.models.GitUserDetail
 import leegroup.module.data.remote.models.responses.UserResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -19,6 +20,6 @@ interface ApiService {
 
     @GET("users/{login}")
     suspend fun getGitUserDetail(
-        @Query("login") login: String,
+        @Path("login") login: String,
     ): GitUserDetail
 }

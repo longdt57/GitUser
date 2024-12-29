@@ -1,9 +1,7 @@
 package leegroup.module.data.repositories
 
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import leegroup.module.data.extensions.flowTransform
+import leegroup.module.data.extensions.transform
 import leegroup.module.data.local.room.GitUserDetailDao
 import leegroup.module.data.models.GitUserDetail
 import leegroup.module.data.models.mapToDomain
@@ -16,15 +14,15 @@ class GitUserDetailRepositoryImpl @Inject constructor(
     private val userDao: GitUserDetailDao,
 ) : GitUserDetailRepository {
 
-    override fun getRemote(login: String): Flow<GitUserDetailModel> = flowTransform {
+    override suspend fun getRemote(login: String) = transform {
         appService.getGitUserDetail(login).let { userDetail ->
             saveToLocal(userDetail)
             mapToDomain(userDetail)
         }
     }
 
-    override fun getLocal(login: String): Flow<GitUserDetailModel> {
-        return userDao.getUserDetail(login).map { user -> mapToDomain(user) }
+    override suspend fun getLocal(login: String): GitUserDetailModel? {
+        return userDao.getUserDetail(login)?.let { mapToDomain(it) }
     }
 
     private suspend fun saveToLocal(user: GitUserDetail) {

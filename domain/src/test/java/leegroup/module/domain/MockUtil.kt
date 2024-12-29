@@ -10,7 +10,6 @@ object MockUtil {
     val apiException = ApiException(
         error = Error(
             message = "message",
-            code = 1,
         ),
         httpCode = 400,
         httpMessage = "Bad Request "
@@ -33,10 +32,11 @@ object MockUtil {
     val gitUserDetail = GitUserDetailModel(
         id = 8809113,
         login = login,
+        name = "Logan Do",
         avatarUrl = "https://avatars.githubusercontent.com/u/8809113?v=4",
-        htmlUrl = "https://github.com/longdt57",
+        blog = "https://github.com/longdt57",
         location = "Hanoi",
         followers = 100_000,
-        following = 50_000
+        following = 50_000,
     )
 }

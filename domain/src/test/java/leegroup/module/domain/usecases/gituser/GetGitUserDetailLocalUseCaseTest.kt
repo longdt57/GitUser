@@ -1,13 +1,11 @@
 package leegroup.module.domain.usecases.gituser
 
 import io.kotest.matchers.shouldBe
-import io.mockk.every
+import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import leegroup.module.domain.MockUtil
 import leegroup.module.domain.repositories.GitUserDetailRepository
@@ -32,7 +30,7 @@ class GetGitUserDetailLocalUseCaseTest {
     @Test
     fun `When request successful, it returns success`() = runTest {
         val expected = gitUserDetail
-        every { mockRepository.getLocal(login) } returns flowOf(expected)
+        coEvery { mockRepository.getLocal(login) } returns expected
 
         useCase(login).collect {
             it shouldBe expected
@@ -42,7 +40,7 @@ class GetGitUserDetailLocalUseCaseTest {
     @Test
     fun `When request failed, it returns error`() = runTest {
         val expected = MockUtil.apiException
-        every { mockRepository.getLocal(login) } returns flow { throw expected }
+        coEvery { mockRepository.getLocal(login) } throws expected
 
         useCase(login).catch {
             it shouldBe expected
