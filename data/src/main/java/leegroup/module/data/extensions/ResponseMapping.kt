@@ -55,10 +55,7 @@ private fun Throwable.mapError(): Throwable {
 private fun parseErrorResponse(response: Response<*>?): ErrorResponse? {
     val jsonString = response?.errorBody()?.string() ?: return null
     return try {
-        Json.decodeFromString<ErrorResponse>(
-            // Todo ignore var
-            jsonString
-        )
+        Json.decodeFromString<ErrorResponse>(jsonString)
     } catch (ex: SerializationException) {
         null
     } catch (ex: IllegalArgumentException) {
