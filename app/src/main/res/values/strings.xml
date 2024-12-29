@@ -8,7 +8,7 @@
 
     <string name="popup_error_unknown_title">"Sorry, something went wrong!"</string>
     <string name="popup_error_unknown_body">"There was a problem processing your request. Please try again."</string>
-    <string name="popup_error_timeout_title">"Oops...Our server overloaded!"</string>
+    <string name="popup_error_timeout_title">"Oops…Our server overloaded!"</string>
     <string name="popup_error_timeout_body">"Apologies for the inconvenience! We’ll be back soon. Please try again later."</string>
 
     <string name="popup_error_no_connection_title">"You are currently offline!"</string>

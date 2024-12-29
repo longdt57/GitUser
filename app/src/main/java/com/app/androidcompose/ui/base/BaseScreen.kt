@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.app.androidcompose.support.extensions.textOrStringResource
 
 @Composable
 fun BaseScreen(
@@ -37,8 +38,8 @@ private fun ErrorView(viewModel: BaseViewModel) {
     val error by viewModel.error.collectAsStateWithLifecycle()
     ErrorView(
         error = error,
-        onErrorConfirmation = { viewModel.onErrorConfirmation() },
-        onErrorDismissRequest = { viewModel.onErrorDismissClick() }
+        onErrorConfirmation = { viewModel.onErrorConfirmation(it) },
+        onErrorDismissRequest = { viewModel.onErrorDismissClick(it) }
     )
 }
 
@@ -50,10 +51,14 @@ private fun ErrorView(
 ) {
     when (error) {
         is ErrorState.MessageError -> {
+            val message = when (error) {
+                is ErrorState.Api -> textOrStringResource(text = error.message, id = error.messageRes)
+                else -> stringResource(error.messageRes)
+            }
             AlertDialogView(
-                dialogTitle = error.titleRes?.let { stringResource(id = it) },
-                dialogText = error.messageRes?.let { stringResource(id = it) },
-                confirmText = error.primaryRes?.let { stringResource(id = it) },
+                dialogTitle = stringResource(id = error.titleRes),
+                dialogText = message,
+                confirmText = stringResource(id = error.primaryRes),
                 dismissText = error.secondaryRes?.let { stringResource(id = it) },
                 onConfirmation = { onErrorConfirmation(error) },
                 onDismissRequest = { onErrorDismissRequest(error) })

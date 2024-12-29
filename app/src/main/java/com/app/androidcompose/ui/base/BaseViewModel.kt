@@ -44,17 +44,19 @@ abstract class BaseViewModel : ViewModel() {
         val error = when (e) {
             is NoConnectivityException -> ErrorState.Network()
             is ServerException -> ErrorState.Server()
-            is ApiException -> ErrorState.Api()
+            is ApiException -> ErrorState.Api(
+                message = e.error?.message
+            )
             else -> ErrorState.Common
         }
         _error.tryEmit(error)
     }
 
-    open fun onErrorConfirmation() {
+    open fun onErrorConfirmation(errorState: ErrorState) {
         hideError()
     }
 
-    open fun onErrorDismissClick() {
+    open fun onErrorDismissClick(errorState: ErrorState) {
         hideError()
     }
 
