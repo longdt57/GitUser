@@ -1,7 +1,6 @@
 package com.app.androidcompose.ui.screens.main.gituser
 
 import androidx.lifecycle.viewModelScope
-import com.app.androidcompose.R
 import com.app.androidcompose.support.util.DispatchersProvider
 import com.app.androidcompose.ui.base.BaseViewModel
 import com.app.androidcompose.ui.base.ErrorState
@@ -67,10 +66,9 @@ class GitUserListViewModel @Inject constructor(
 
     override fun onErrorConfirmation(errorState: ErrorState) {
         super.onErrorConfirmation(errorState)
-        if (errorState is ErrorState.MessageError &&
-            errorState.primaryRes == R.string.common_retry
-        ) {
-            loadIfEmpty()
+        when (errorState) {
+            is ErrorState.Api, is ErrorState.Network -> loadIfEmpty()
+            else -> Unit
         }
     }
 

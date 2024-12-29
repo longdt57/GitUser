@@ -132,6 +132,12 @@ class GitUserListViewModelTest {
     }
 
     @Test
+    fun `When network onErrorConfirmation is called, it calls load if empty again`() = runTest {
+        viewModel.onErrorConfirmation(ErrorState.Network())
+        verify(exactly = 1) { mockUseCase(since = 0, perPage = perPage) }
+    }
+
+    @Test
     fun `When common onErrorConfirmation is called, it doesn't calls load if empty again`() = runTest {
         viewModel.onErrorConfirmation(ErrorState.Common)
         verify(exactly = 0) { mockUseCase(since = 0, perPage = perPage) }

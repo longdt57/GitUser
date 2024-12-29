@@ -17,6 +17,7 @@ import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import leegroup.module.domain.exceptions.NoConnectivityException
 import leegroup.module.domain.models.GitUserDetailModel
 import leegroup.module.domain.usecases.gituser.GetGitUserDetailLocalUseCase
 import leegroup.module.domain.usecases.gituser.GetGitUserDetailRemoteUseCase
@@ -161,6 +162,18 @@ class GitUserDetailViewModelTest {
 
         viewModel.handleAction(GitUserDetailAction.SetUserLogin(userLogin))
         viewModel.onErrorConfirmation(MockUtil.apiErrorState)
+        verify(exactly = 2) { mockRemoteUseCase(userLogin) }
+    }
+
+    @Test
+    fun `When Network onErrorConfirmation is called, it calls fetchRemote again`() = runTest {
+        every { mockLocalUseCase(userLogin) } returns flowOf()
+        every { mockRemoteUseCase(userLogin) } returns flow {
+            throw NoConnectivityException
+        }
+
+        viewModel.handleAction(GitUserDetailAction.SetUserLogin(userLogin))
+        viewModel.onErrorConfirmation(ErrorState.Network())
         verify(exactly = 2) { mockRemoteUseCase(userLogin) }
     }
 

@@ -1,7 +1,6 @@
 package com.app.androidcompose.ui.screens.main.gituserdetail
 
 import androidx.lifecycle.viewModelScope
-import com.app.androidcompose.R
 import com.app.androidcompose.support.util.DispatchersProvider
 import com.app.androidcompose.ui.base.BaseViewModel
 import com.app.androidcompose.ui.base.ErrorState
@@ -96,10 +95,9 @@ class GitUserDetailViewModel @Inject constructor(
 
     override fun onErrorConfirmation(errorState: ErrorState) {
         super.onErrorConfirmation(errorState)
-        if (errorState is ErrorState.MessageError &&
-            errorState.primaryRes == R.string.common_retry
-        ) {
-            fetchRemote()
+        when (errorState) {
+            is ErrorState.Api, is ErrorState.Network -> fetchRemote()
+            else -> Unit
         }
     }
 }
