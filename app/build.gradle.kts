@@ -8,9 +8,6 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.google.service)
-    alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.firebase.pref)
-    alias(libs.plugins.firebase.app.distribution)
     alias(libs.plugins.navigation.safeargs)
     alias(libs.plugins.kotlinx.kover)
 }
@@ -70,10 +67,6 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs[release]
-
-            firebaseCrashlytics {
-                mappingFileUploadEnabled = true
-            }
         }
     }
 
@@ -82,22 +75,10 @@ android {
         create("staging") {
             isDefault = true
             applicationIdSuffix = ".staging"
-
-            firebaseAppDistribution {
-                releaseNotes = "Test"
-                testers = "full@testers.com"
-                groups = "Beta, QA"
-            }
         }
 
         create("prod") {
             applicationIdSuffix = ".prod"
-        }
-    }
-
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
         }
     }
 
@@ -109,7 +90,6 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
-        viewBinding = true
         buildConfig = true
         compose = true
     }
@@ -123,11 +103,8 @@ android {
     }
     testOptions {
         unitTests {
-            // Robolectric resource processing/loading https://github.com/robolectric/robolectric/pull/4736
             isIncludeAndroidResources = true
         }
-        // Disable device's animation for instrument testing
-        // animationsDisabled = true
     }
 }
 
@@ -151,16 +128,10 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.work.runtime.ktx)
 
     // Data Store
     implementation(libs.androidx.datastore.preferences)
-
-    // Firebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.perf)
 
     // Coroutines
     implementation(libs.kotlin.coroutines.core)
@@ -193,17 +164,6 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.gif)
     implementation(libs.coil.svg)
-
-    // Inspect
-    debugImplementation(libs.library.chucker)
-    releaseImplementation(libs.library.chucker.no.op)
-
-    //Stetho
-    implementation(libs.stetho)
-    implementation(libs.stetho.okhttp3)
-
-    // Time
-    implementation(libs.kronos.android)
 
     // Logging
     implementation(libs.timber)

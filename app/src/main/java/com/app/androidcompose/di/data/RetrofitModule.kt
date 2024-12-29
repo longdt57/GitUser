@@ -6,7 +6,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Qualifier
 import kotlinx.serialization.json.Json
 import leegroup.module.data.remote.services.ApiService
 import okhttp3.MediaType.Companion.toMediaType
@@ -29,12 +28,7 @@ class RetrofitModule {
         )
     }
 
-    @Qualifier
-    @Retention(AnnotationRetention.BINARY)
-    annotation class AppRetrofit
-
     @Provides
-    @AppRetrofit
     fun provideAppRetrofit(
         okHttpClient: OkHttpClient,
         converter: Converter.Factory
@@ -47,7 +41,7 @@ class RetrofitModule {
     }
 
     @Provides
-    fun provideService(@AppRetrofit retrofit: Retrofit): ApiService {
+    fun provideService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
 }

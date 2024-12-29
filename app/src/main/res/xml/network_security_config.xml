@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <debug-overrides>
         <trust-anchors>
@@ -9,7 +10,7 @@
 
     <domain-config>
         <!-- Enter your base URL here -->
-        <domain includeSubdomains="true">www.dummyjson.com</domain>
+        <domain includeSubdomains="true">api.github.com</domain>
         <trust-anchors>
             <certificates src="user" />
             <certificates src="system" />

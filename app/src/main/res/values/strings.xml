@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android Compose</string>
+    <string name="app_name">Git Users</string>
     <string name="error_generic">Unexpected error</string>
 
     <string name="common_close">"Close"</string>

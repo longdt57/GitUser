@@ -16,6 +16,7 @@ data class GitUser(
     val id: Long,
 
     @SerialName("login")
+    @ColumnInfo(name = "login")
     val login: String,
 
     @SerialName("avatar_url")

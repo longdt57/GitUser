@@ -3,54 +3,45 @@ minSdk = "24"
 targetSdk = "34"
 compileSdk = "34"
 
+activityCompose = "1.9.2"
 agp = "8.5.2"
 coil = "2.7.0"
+composeBom = "2024.09.02"
 core = "1.6.1"
-coreSplashscreen = "1.0.1"
+coreKtx = "1.13.1"
+coroutineTest = "1.8.1"
+coroutines = "1.8.1"
 datastorePreferences = "1.1.1"
-firebaseBom = "33.3.0"
+espressoCore = "3.6.1"
+googleService = "4.4.2"
 hiltAndroid = "2.51.1"
 hiltNavigationCompose = "1.2.0"
-kotestAssertionsCore = "5.6.2"
-kotlin = "2.0.0"
-coreKtx = "1.13.1"
+javaInject = "1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
-espressoCore = "3.6.1"
+kotestAssertionsCore = "5.6.2"
+kotlin = "2.0.0"
+kotlinxCollectionsImmutable = "0.3.5"
 kotlinxSerializationJson = "1.7.1"
-chucker = "4.0.0"
-kronosAndroid = "0.0.1-alpha11"
-lifecycleRuntimeKtx = "2.8.6"
-activityCompose = "1.9.2"
-composeBom = "2024.09.02"
+kover = "0.7.0"
 ksp = "2.0.0-1.0.22"
+lifecycleRuntimeKtx = "2.8.6"
 mockk = "1.13.5"
 navigationCompose = "2.8.5"
-retrofit = "2.9.0"
 okhttp = "4.12.0"
+retrofit = "2.11.0"
 retrofit2KotlinxSerializationConverter = "1.0.0"
 robolectric = "4.13"
 room = "2.6.1"
+safeargs = "2.8.1"
 securityCrypto = "1.0.0"
-stetho = "1.6.0"
 timber = "5.0.1"
 turbine = "0.13.0"
 workRuntimeKtx = "2.9.1"
-coroutineTest = "1.8.1"
-googleService = "4.4.2"
-crashlytic = "3.0.2"
-firebasePref = "1.4.2"
-appDistribution = "5.0.0"
-safeargs = "2.8.1"
-coroutines = "1.8.1"
-kover = "0.7.0"
-javaInject = "1"
-kotlinxCollectionsImmutable = "0.3.5"
 
 [libraries]
 androidx-core = { module = "androidx.test:core", version.ref = "core" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "lifecycleRuntimeKtx" }
@@ -78,26 +69,19 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coil" }
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil" }
 
-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
-firebase-perf = { module = "com.google.firebase:firebase-perf" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
 
-kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
-kronos-android = { module = "com.lyft.kronos:kronos-android", version.ref = "kronosAndroid" }
+# Java
+java-inject = { module = "javax.inject:javax.inject", version.ref = "javaInject" }
+
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutineTest" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
-
-# Java
-java-inject = { module = "javax.inject:javax.inject", version.ref = "javaInject"}
-
-library-chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
-library-chucker-no-op = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker" }
+kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotestAssertionsCore" }
@@ -117,8 +101,6 @@ room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 
 retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
-stetho = { module = "com.facebook.stetho:stetho", version.ref = "stetho" }
-stetho-okhttp3 = { module = "com.facebook.stetho:stetho-okhttp3", version.ref = "stetho" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
@@ -130,9 +112,6 @@ google-dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hil
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 google-service = { id = "com.google.gms.google-services", version.ref = "googleService" }
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytic" }
-firebase-pref = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePref" }
-firebase-app-distribution = { id = "com.google.firebase.appdistribution", version.ref = "appDistribution" }
 navigation-safeargs = { id = "androidx.navigation.safeargs", version.ref = "safeargs" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
