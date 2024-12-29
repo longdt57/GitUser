@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Git Users</string>
+    <string name="git_user_list_screen_title">Github Users</string>
+    <string name="git_user_detail_screen_title">User Details</string>
     <string name="error_generic">Unexpected error</string>
 
     <string name="common_close">"Close"</string>
@@ -13,4 +15,9 @@
 
     <string name="popup_error_no_connection_title">"You are currently offline!"</string>
     <string name="popup_error_no_connection_body">"Looks like your connection is interrupted. Check network connection and try again."</string>
+    <string name="back">Back</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="blog">Blog</string>
+    <string name="not_set">Not set</string>
 </resources>
