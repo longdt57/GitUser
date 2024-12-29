@@ -5,9 +5,6 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import leegroup.module.data.MockUtil
 import leegroup.module.data.local.room.GitUserDetailDao
@@ -40,10 +37,8 @@ class GitUserDetailRepositoryTest {
         coEvery { mockService.getGitUserDetail(login) } returns expected
         coEvery { mockUserDao.upsert(expected) } returns Unit
 
-        repository.getRemote(login).collect {
-            it shouldBe gitUserDetailModel
-            coVerify(exactly = 1) { mockUserDao.upsert(expected) }
-        }
+        repository.getRemote(login) shouldBe gitUserDetailModel
+        coVerify(exactly = 1) { mockUserDao.upsert(expected) }
     }
 
     @Test
@@ -51,27 +46,25 @@ class GitUserDetailRepositoryTest {
         val expected = RuntimeException()
         coEvery { mockService.getGitUserDetail(login) } throws expected
 
-        repository.getRemote(login).catch {
-            it shouldBe expected
-        }.collect()
+        try {
+            repository.getRemote(login)
+        } catch (e: Exception) {
+            e shouldBe expected
+        }
     }
 
     @Test
     fun `getLocal should return transformed local data`() = runTest {
         val expected = gitUserDetail
-        coEvery { mockUserDao.getUserDetail(login) } returns flowOf(expected)
+        coEvery { mockUserDao.getUserDetail(login) } returns expected
 
-        repository.getLocal(login).collect { result ->
-            result shouldBe gitUserDetailModel
-        }
+        repository.getLocal(login) shouldBe gitUserDetailModel
     }
 
     @Test
     fun `getLocal should return nothing when database is empty`() = runTest {
-        coEvery { mockUserDao.getUserDetail(login) } returns flowOf()
+        coEvery { mockUserDao.getUserDetail(login) } returns null
 
-        repository.getLocal(login).collect { result ->
-            assert(false) // won't reach this
-        }
+        repository.getLocal(login) shouldBe null
     }
 }

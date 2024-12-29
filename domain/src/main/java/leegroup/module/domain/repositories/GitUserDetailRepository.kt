@@ -1,9 +1,8 @@
 package leegroup.module.domain.repositories
 
-import kotlinx.coroutines.flow.Flow
 import leegroup.module.domain.models.GitUserDetailModel
 
 interface GitUserDetailRepository {
-    fun getRemote(login: String): Flow<GitUserDetailModel>
-    fun getLocal(login: String): Flow<GitUserDetailModel>
+    suspend fun getRemote(login: String): GitUserDetailModel
+    suspend fun getLocal(login: String): GitUserDetailModel?
 }

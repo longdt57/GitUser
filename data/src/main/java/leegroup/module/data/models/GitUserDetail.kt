@@ -19,13 +19,17 @@ data class GitUserDetail(
     @ColumnInfo(name = "login")
     val login: String,
 
+    @SerialName("name")
+    @ColumnInfo(name = "name")
+    val name: String?,
+
     @SerialName("avatar_url")
     @ColumnInfo(name = "avatar_url")
     val avatarUrl: String?,
 
-    @SerialName("html_url")
-    @ColumnInfo(name = "html_url")
-    val htmlUrl: String?,
+    @SerialName("blog")
+    @ColumnInfo(name = "blog")
+    val blog: String?,
 
     @SerialName("location")
     @ColumnInfo(name = "location")
@@ -43,9 +47,10 @@ data class GitUserDetail(
 fun GitUserDetail.mapToDomain() = GitUserDetailModel(
     id = id,
     login = login,
+    name = name,
     avatarUrl = avatarUrl,
-    htmlUrl = htmlUrl,
+    blog = blog,
     location = location,
     followers = followers.orZero(),
-    following = following.orZero()
+    following = following.orZero(),
 )
