@@ -13,7 +13,7 @@ import leegroup.module.domain.exceptions.ApiException
 import leegroup.module.domain.exceptions.NoConnectivityException
 import leegroup.module.domain.exceptions.ServerException
 
-@Suppress("PropertyName")
+@Suppress("PropertyName", "MemberVisibilityCanBePrivate")
 abstract class BaseViewModel : ViewModel() {
 
     private val _loading: MutableStateFlow<LoadingState> = MutableStateFlow(LoadingState.None)

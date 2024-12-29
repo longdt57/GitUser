@@ -37,8 +37,8 @@ class GitUserDetailUiMapperImplTest {
             avatarUrl = "newAvatarUrl",
             blog = "newBlog",
             location = "newLocation",
-            followers = "999+",
-            following = "800"
+            followers = "100+",
+            following = "100+"
         )
 
         val result = mapper.mapToUiModel(oldUiModel, model)
@@ -114,12 +114,12 @@ class GitUserDetailUiMapperImplTest {
             blog = "newBlog",
             location = "newLocation",
             followers = 1200,
-            following = 800
+            following = 80
         )
 
         val result = mapper.mapToUiModel(oldUiModel, model)
 
-        assertEquals("999+", result.followers)
-        assertEquals("800", result.following)
+        assertEquals("100+", result.followers)
+        assertEquals("80", result.following)
     }
 }

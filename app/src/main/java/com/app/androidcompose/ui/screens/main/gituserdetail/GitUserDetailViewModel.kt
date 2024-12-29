@@ -42,23 +42,34 @@ class GitUserDetailViewModel @Inject constructor(
             .onEach { result ->
                 handleSuccess(result)
             }
+            .onEach {
+                hideLoading() // Hide loading if local data is available
+            }
             .flowOn(dispatchersProvider.io)
             .catch {
-                Timber.e(it)
+                Timber.e(it) // Not show local error to screen
             }
             .launchIn(viewModelScope)
     }
 
     private fun fetchRemote() {
         getGitUserDetailRemoteUseCase(getLogin())
-            .injectLoading()
+            .let {
+                // Show loading if data is empty
+                when {
+                    isDataEmpty() -> it.injectLoading()
+                    else -> it
+                }
+            }
             .onEach { result ->
                 handleSuccess(result)
             }
             .flowOn(dispatchersProvider.io)
             .catch { e ->
                 if (isDataEmpty()) {
-                    handleError(e)
+                    handleError(e)  // Show error if data is empty
+                } else {
+                    Timber.e(e)
                 }
             }
             .launchIn(viewModelScope)

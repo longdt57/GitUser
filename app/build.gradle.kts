@@ -193,36 +193,25 @@ dependencies {
     kover(project(":domain"))
 }
 
-koverReport {
-    defaults {
-        mergeWith("stagingDebug")
+kover {
+    reports {
         filters {
-            val excludedFiles = listOf(
-                "*.BuildConfig.*",
-                "*.BuildConfig",
-                // Enum
-                "*.*\$Creator*",
-                // DI
-                "*.di.*",
-                // Hilt
-                "*.*_ComponentTreeDeps*",
-                "*.*_HiltComponents*",
-                "*.*_HiltModules*",
-                "*.*_MembersInjector*",
-                "*.*_Factory*",
-                "*.Hilt_*",
-                "dagger.hilt.internal.*",
-                "hilt_aggregated_deps.*",
-                // Jetpack Compose
-                "*.ComposableSingletons*",
-                "*.*\$*Preview\$*",
-                "*.ui.preview.*",
-            )
-
+            includes {
+                classes("*ViewModel")
+                classes("*UseCase")
+                classes("*Mapper")
+                classes("*MapperImpl")
+                classes("*Repository")
+                classes("*RepositoryImpl")
+                classes("*Util")
+                classes("*Formatter")
+                classes("*FormatterImpl")
+                classes("*Converter")
+                classes("*ConverterImpl")
+            }
             excludes {
-                classes(excludedFiles)
+                classes("_")
             }
         }
     }
 }
-

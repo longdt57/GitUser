@@ -2,7 +2,6 @@ package com.app.androidcompose.ui.screens.main.gituserdetail.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,11 +27,10 @@ fun GitUserDetailBlog(modifier: Modifier = Modifier, blog: String) {
         val context = LocalContext.current
         Text(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp)
                 .clickable {
                     context.formatAndOpenUrl(blog)
-                },
+                }
+                .padding(vertical = 8.dp),
             text = blog,
             style = MaterialTheme.typography.bodyLarge,
             color = GreySoft200,

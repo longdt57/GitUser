@@ -8,6 +8,7 @@ import com.app.androidcompose.ui.mapper.GitUserDetailUiMapper
 import com.app.androidcompose.ui.models.GitUserDetailUiModel
 import com.app.androidcompose.ui.screens.main.gituserdetail.GitUserDetailAction
 import com.app.androidcompose.ui.screens.main.gituserdetail.GitUserDetailViewModel
+import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -161,6 +162,20 @@ class GitUserDetailViewModelTest {
         viewModel.handleAction(GitUserDetailAction.SetUserLogin(userLogin))
         viewModel.onErrorConfirmation(MockUtil.apiErrorState)
         verify(exactly = 2) { mockRemoteUseCase(userLogin) }
+    }
+
+    @Test
+    fun `When Api onDismissClick is called, it hides error`() = runTest {
+        every { mockLocalUseCase(userLogin) } returns flowOf()
+        every { mockRemoteUseCase(userLogin) } returns flow {
+            throw MockUtil.apiError
+        }
+
+        viewModel.handleAction(GitUserDetailAction.SetUserLogin(userLogin))
+        viewModel.onErrorDismissClick(MockUtil.apiErrorState)
+        viewModel.error.test {
+            expectMostRecentItem() shouldBe ErrorState.None
+        }
     }
 
     @Test

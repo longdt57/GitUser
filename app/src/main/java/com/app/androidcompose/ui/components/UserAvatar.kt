@@ -3,6 +3,7 @@ package com.app.androidcompose.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,7 +22,7 @@ import com.app.androidcompose.ui.theme.ComposeTheme
 import com.app.androidcompose.ui.theme.GreySoft950
 
 @Composable
-fun UserCircleAvatar(modifier: Modifier = Modifier, avatarUrl: String?) {
+fun UserAvatar(modifier: Modifier = Modifier, avatarUrl: String?) {
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
@@ -30,6 +31,7 @@ fun UserCircleAvatar(modifier: Modifier = Modifier, avatarUrl: String?) {
         AsyncImage(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(4.dp)
                 .clip(CircleShape),
             model = ImageRequest.Builder(LocalContext.current)
                 .data(avatarUrl)
@@ -38,6 +40,7 @@ fun UserCircleAvatar(modifier: Modifier = Modifier, avatarUrl: String?) {
             contentDescription = avatarUrl,
             placeholder = rememberAsyncImagePainter(model = R.drawable.im_avatar_placeholder),
             error = rememberAsyncImagePainter(model = R.drawable.im_avatar_placeholder),
+            fallback = rememberAsyncImagePainter(model = R.drawable.im_avatar_placeholder),
             contentScale = ContentScale.Fit,
         )
     }
@@ -47,7 +50,7 @@ fun UserCircleAvatar(modifier: Modifier = Modifier, avatarUrl: String?) {
 @Composable
 private fun UserCircleAvatarPreview() {
     ComposeTheme {
-        UserCircleAvatar(
+        UserAvatar(
             modifier = Modifier.size(40.dp),
             avatarUrl = "https://avatars.githubusercontent.com/u/1?v=4"
         )

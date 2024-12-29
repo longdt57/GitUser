@@ -4,7 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -49,6 +51,8 @@ fun GitUserDetailScreen(
     GitUserDetailScreenContent(
         modifier = Modifier
             .fillMaxSize()
+            .navigationBarsPadding()
+            .statusBarsPadding()
             .background(MaterialTheme.colorScheme.background),
         uiModel = uiModel,
         onBack = { navigator(BaseDestination.Up()) }

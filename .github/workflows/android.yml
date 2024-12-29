@@ -25,6 +25,6 @@ jobs:
     - name: Lint
       run: ./gradlew lint
     - name: Unit test
-      run: ./gradlew app:testStagingReleaseUnitTest data:testReleaseUnitTest domain:test
+      run: ./gradlew app:testStagingDebugUnitTest data:testDebugUnitTest domain:test
     - name: Release build
-      run: ./gradlew app:assembleStagingRelease
+      run: ./gradlew app:assembleStagingDebug

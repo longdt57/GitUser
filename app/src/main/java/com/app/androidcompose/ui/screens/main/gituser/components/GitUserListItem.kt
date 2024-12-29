@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.app.androidcompose.ui.components.AppHorizontalDivider
 import com.app.androidcompose.ui.components.LinkText
-import com.app.androidcompose.ui.components.UserCircleAvatar
+import com.app.androidcompose.ui.components.UserAvatar
 import com.app.androidcompose.ui.theme.ComposeTheme
 
 @Composable
@@ -27,12 +27,12 @@ fun GitUserListItem(
     htmlUrl: String?,
 ) {
     Row(modifier = modifier) {
-        UserCircleAvatar(modifier = Modifier.size(80.dp), avatarUrl = avatarUrl)
+        UserAvatar(modifier = Modifier.size(120.dp), avatarUrl = avatarUrl)
         Spacer(modifier = Modifier.width(12.dp))
         Column {
             GitUserTitle(modifier = Modifier.fillMaxWidth(), title = title)
             AppHorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-            htmlUrl?.let { LinkText(modifier = Modifier.fillMaxWidth(), url = it) }
+            htmlUrl?.let { LinkText(url = it) }
         }
     }
 }
@@ -42,7 +42,7 @@ private fun GitUserTitle(modifier: Modifier, title: String) {
     Text(
         modifier = modifier,
         text = title,
-        style = MaterialTheme.typography.titleMedium,
+        style = MaterialTheme.typography.titleLarge,
         fontWeight = FontWeight.SemiBold
     )
 }
