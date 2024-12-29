@@ -7,6 +7,6 @@ import leegroup.module.domain.models.GitUserModel
 
 @Immutable
 data class GitUserListUiModel(
-    val showRetry: Boolean = false,
+    val showRefresh: Boolean = false,
     val users: ImmutableList<GitUserModel> = persistentListOf(),
 )

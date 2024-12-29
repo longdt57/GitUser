@@ -37,6 +37,9 @@ class GitUserListViewModel @Inject constructor(
 
     private fun loadIfEmpty() {
         if (isEmpty()) {
+            _uiModel.update { oldValue ->
+                oldValue.copy(showRefresh = false) // Hide retry button
+            }
             loadMore()
         }
     }
@@ -58,7 +61,7 @@ class GitUserListViewModel @Inject constructor(
     override fun handleError(e: Throwable) {
         super.handleError(e)
         _uiModel.update { oldValue ->
-            oldValue.copy(showRetry = isEmpty())
+            oldValue.copy(showRefresh = isEmpty())
         }
     }
 
@@ -74,7 +77,7 @@ class GitUserListViewModel @Inject constructor(
     private fun handleSuccess(result: List<GitUserModel>) {
         _uiModel.update { oldValue ->
             val users = oldValue.users.plus(result).toImmutableList()
-            oldValue.copy(users = users, showRetry = isEmpty())
+            oldValue.copy(users = users, showRefresh = isEmpty())
         }
     }
 

@@ -57,7 +57,7 @@ fun GitUserListScreen(
         modifier = Modifier
             .navigationBarsPadding()
             .statusBarsPadding(),
-        showRefresh = uiModel.showRetry,
+        showRefresh = uiModel.showRefresh,
         users = uiModel.users,
         onLoadMore = {
             viewModel.handleAction(GitUserListAction.LoadMore)
