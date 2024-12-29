@@ -20,7 +20,7 @@ class GitUserDetailRepositoryTest {
     private lateinit var mockUserDao: GitUserDetailDao
     private lateinit var repository: GitUserDetailRepository
 
-    private val login = MockUtil.login
+    private val login = MockUtil.GIT_USER_DETAIL_LOGIN
     private val gitUserDetail = MockUtil.gitUserDetail
     private val gitUserDetailModel = MockUtil.gitUserDetailModel
 

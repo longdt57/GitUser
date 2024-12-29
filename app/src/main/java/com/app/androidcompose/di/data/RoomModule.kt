@@ -10,7 +10,6 @@ import dagger.hilt.components.SingletonComponent
 import leegroup.module.data.local.room.AppDatabase
 import leegroup.module.data.local.room.GitUserDao
 import leegroup.module.data.local.room.GitUserDetailDao
-import leegroup.module.data.local.room.UserDao
 
 private const val APP_DATABASE = "app-database"
 
@@ -27,9 +26,6 @@ class RoomModule {
             .fallbackToDestructiveMigration()
             .build()
     }
-
-    @Provides
-    fun provideUserDao(database: AppDatabase): UserDao = database.userDao()
 
     @Provides
     fun provideGitUserDao(database: AppDatabase): GitUserDao = database.gitUserDao()

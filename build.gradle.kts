@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.google.devtools.ksp) apply false
     alias(libs.plugins.serialization) apply false
     alias(libs.plugins.compose.compiler) apply false
-    alias(libs.plugins.google.service) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlinx.kover) apply false
 }

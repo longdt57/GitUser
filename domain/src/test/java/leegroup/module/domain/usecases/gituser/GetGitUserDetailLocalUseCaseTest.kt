@@ -19,7 +19,7 @@ class GetGitUserDetailLocalUseCaseTest {
     private lateinit var mockRepository: GitUserDetailRepository
     private lateinit var useCase: GetGitUserDetailLocalUseCase
 
-    private val login = MockUtil.login
+    private val login = MockUtil.GIT_USER_DETAIL_LOGIN
     private val gitUserDetail = MockUtil.gitUserDetail
 
     @Before

@@ -11,7 +11,6 @@ import com.app.androidcompose.ui.composable
 import com.app.androidcompose.ui.navigateWithDestination
 import com.app.androidcompose.ui.screens.main.gituser.GitUserListScreen
 import com.app.androidcompose.ui.screens.main.gituserdetail.GitUserDetailScreen
-import com.app.androidcompose.ui.screens.main.home.HomeScreen
 
 fun NavGraphBuilder.mainNavGraph(
     navController: NavHostController,
@@ -21,11 +20,6 @@ fun NavGraphBuilder.mainNavGraph(
         route = AppDestination.MainNavGraph.route,
         startDestination = MainDestination.GitUserList.destination
     ) {
-        composable(MainDestination.Home) {
-            HomeScreen(
-                navigator = { destination -> navController.appNavigate(destination) }
-            )
-        }
         composable(MainDestination.GitUserList) {
             GitUserListScreen(
                 navigator = { destination -> navController.appNavigate(destination) }

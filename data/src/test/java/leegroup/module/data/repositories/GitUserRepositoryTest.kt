@@ -20,8 +20,8 @@ class GitUserRepositoryTest {
     private lateinit var mockUserDao: GitUserDao
     private lateinit var repository: GitUserRepository
 
-    private val since = MockUtil.since
-    private val perPage = MockUtil.perPage
+    private val since = MockUtil.GIT_USER_SINCE
+    private val perPage = MockUtil.GIT_USER_PER_PAGE
     private val sampleGitUsers = MockUtil.sampleGitUsers
     private val sampleGitUserModels = MockUtil.sampleGitUserModels
 

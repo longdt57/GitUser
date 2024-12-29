@@ -6,8 +6,6 @@ import com.app.androidcompose.ui.base.BaseDestination
 import kotlinx.serialization.Serializable
 
 sealed class MainDestination {
-
-    object Home : BaseDestination("home")
     object GitUserList : BaseDestination("gitUserList")
     object GitUserDetail : BaseDestination("gitUserDetail/{login}") {
         override val arguments = listOf(

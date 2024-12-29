@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserTest(
+data class TestUser(
     @SerialName("id")
     val id: Int,
 
