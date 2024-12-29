@@ -58,7 +58,7 @@ private fun ErrorView(
             AlertDialogView(
                 dialogTitle = stringResource(id = error.titleRes),
                 dialogText = message,
-                confirmText = stringResource(id = error.primaryRes),
+                confirmText = error.primaryRes?.let { stringResource(id = it) },
                 dismissText = error.secondaryRes?.let { stringResource(id = it) },
                 onConfirmation = { onErrorConfirmation(error) },
                 onDismissRequest = { onErrorDismissRequest(error) })

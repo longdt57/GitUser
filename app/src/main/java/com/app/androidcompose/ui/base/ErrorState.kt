@@ -10,7 +10,7 @@ sealed interface ErrorState {
         val iconRes: Int? get() = null
         val titleRes: Int get() = R.string.popup_error_unknown_title
         val messageRes: Int get() = R.string.popup_error_unknown_body
-        val primaryRes: Int get() = R.string.common_close
+        val primaryRes: Int? get() = R.string.common_close
         val secondaryRes: Int? get() = null
     }
 
@@ -40,7 +40,7 @@ sealed interface ErrorState {
         override val iconRes: Int? = null,
         override val titleRes: Int = R.string.popup_error_timeout_title,
         override val messageRes: Int = R.string.popup_error_timeout_body,
-        override val primaryRes: Int = R.string.common_close,
-        override val secondaryRes: Int? = null,
+        override val primaryRes: Int? = null,
+        override val secondaryRes: Int = R.string.common_close,
     ) : MessageError
 }
