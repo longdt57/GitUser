@@ -9,6 +9,8 @@ class GetGitUserDetailLocalUseCase @Inject constructor(
 ) {
 
     operator fun invoke(login: String) = flow {
-        emit(repository.getLocal(login))
+        repository.getLocal(login)?.let {
+            emit(it)
+        }
     }
 }

@@ -6,6 +6,7 @@ import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import leegroup.module.domain.MockUtil
 import leegroup.module.domain.repositories.GitUserDetailRepository
@@ -35,6 +36,13 @@ class GetGitUserDetailLocalUseCaseTest {
         useCase(login).collect {
             it shouldBe expected
         }
+    }
+
+    @Test
+    fun `When request return null, it returns nothing`() = runTest {
+        coEvery { mockRepository.getLocal(login) } returns null
+
+        useCase(login).firstOrNull() shouldBe null
     }
 
     @Test
