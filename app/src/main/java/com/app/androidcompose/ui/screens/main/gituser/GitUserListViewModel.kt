@@ -36,9 +36,6 @@ class GitUserListViewModel @Inject constructor(
 
     private fun loadIfEmpty() {
         if (isEmpty()) {
-            _uiModel.update { oldValue ->
-                oldValue.copy(showRefresh = false) // Hide retry button
-            }
             loadMore()
         }
     }
@@ -57,17 +54,10 @@ class GitUserListViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    override fun handleError(e: Throwable) {
-        super.handleError(e)
-        _uiModel.update { oldValue ->
-            oldValue.copy(showRefresh = isEmpty())
-        }
-    }
-
     override fun onErrorConfirmation(errorState: ErrorState) {
         super.onErrorConfirmation(errorState)
         when (errorState) {
-            is ErrorState.Api, is ErrorState.Network -> loadIfEmpty()
+            is ErrorState.Api, is ErrorState.Network -> loadMore()
             else -> Unit
         }
     }
@@ -75,7 +65,7 @@ class GitUserListViewModel @Inject constructor(
     private fun handleSuccess(result: List<GitUserModel>) {
         _uiModel.update { oldValue ->
             val users = oldValue.users.plus(result).toImmutableList()
-            oldValue.copy(users = users, showRefresh = isEmpty())
+            oldValue.copy(users = users)
         }
     }
 

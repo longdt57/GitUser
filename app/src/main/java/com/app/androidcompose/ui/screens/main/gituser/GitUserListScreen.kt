@@ -20,7 +20,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -31,6 +33,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.app.androidcompose.R
 import com.app.androidcompose.support.extensions.collectAsEffect
 import com.app.androidcompose.ui.base.BaseScreen
+import com.app.androidcompose.ui.base.LoadingState
 import com.app.androidcompose.ui.components.LoadMore
 import com.app.androidcompose.ui.components.UserCard
 import com.app.androidcompose.ui.screens.main.MainDestination
@@ -48,6 +51,12 @@ fun GitUserListScreen(
 ) = BaseScreen(viewModel) {
     viewModel.navigator.collectAsEffect { destination -> navigator(destination) }
     val uiModel by viewModel.uiModel.collectAsStateWithLifecycle()
+    val loading by viewModel.loading.collectAsStateWithLifecycle()
+    val isLoading by remember {
+        derivedStateOf {
+            loading is LoadingState.Loading
+        }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.handleAction(GitUserListAction.LoadIfEmpty)
@@ -59,7 +68,7 @@ fun GitUserListScreen(
             .background(MaterialTheme.colorScheme.background)
             .navigationBarsPadding()
             .statusBarsPadding(),
-        showRefresh = uiModel.showRefresh,
+        showRefresh = uiModel.users.isEmpty() && isLoading.not(),
         users = uiModel.users,
         onLoadMore = {
             viewModel.handleAction(GitUserListAction.LoadMore)
