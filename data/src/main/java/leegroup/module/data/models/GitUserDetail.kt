@@ -13,7 +13,7 @@ import leegroup.module.domain.models.GitUserDetailModel
 data class GitUserDetail(
     @SerialName("id")
     @PrimaryKey
-    val id: Int,
+    val id: Long,
 
     @SerialName("login")
     @ColumnInfo(name = "login")

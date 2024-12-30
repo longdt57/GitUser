@@ -1,7 +1,7 @@
 package leegroup.module.domain.models
 
 data class GitUserDetailModel(
-    val id: Int,
+    val id: Long,
     val login: String,
     val name: String?,
     val avatarUrl: String?,
