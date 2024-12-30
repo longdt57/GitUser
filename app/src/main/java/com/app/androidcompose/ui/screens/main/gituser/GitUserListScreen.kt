@@ -55,6 +55,8 @@ fun GitUserListScreen(
 
     GitUserListScreenContent(
         modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .navigationBarsPadding()
             .statusBarsPadding(),
         showRefresh = uiModel.showRefresh,
@@ -87,7 +89,6 @@ private fun GitUserListScreenContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
-                    .background(MaterialTheme.colorScheme.background)
                     .padding(horizontal = 20.dp),
                 users = users,
                 onClick = onClick,

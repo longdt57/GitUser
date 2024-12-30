@@ -51,9 +51,9 @@ fun GitUserDetailScreen(
     GitUserDetailScreenContent(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .navigationBarsPadding()
-            .statusBarsPadding()
-            .background(MaterialTheme.colorScheme.background),
+            .statusBarsPadding(),
         uiModel = uiModel,
         onBack = { navigator(BaseDestination.Up()) }
     )

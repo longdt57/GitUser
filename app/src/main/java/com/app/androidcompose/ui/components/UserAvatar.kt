@@ -12,10 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.app.androidcompose.R
 import com.app.androidcompose.ui.theme.ComposeTheme
@@ -35,13 +35,13 @@ fun UserAvatar(modifier: Modifier = Modifier, avatarUrl: String?) {
                 .clip(CircleShape),
             model = ImageRequest.Builder(LocalContext.current)
                 .data(avatarUrl)
-                .crossfade(true) // Optional fade animation
+                .crossfade(true)
+                .placeholder(R.drawable.im_avatar_placeholder) // Unified placeholder
+                .error(R.drawable.im_avatar_placeholder) // Unified placeholder
+                .fallback(R.drawable.im_avatar_placeholder)
                 .build(),
-            contentDescription = avatarUrl,
-            placeholder = rememberAsyncImagePainter(model = R.drawable.im_avatar_placeholder),
-            error = rememberAsyncImagePainter(model = R.drawable.im_avatar_placeholder),
-            fallback = rememberAsyncImagePainter(model = R.drawable.im_avatar_placeholder),
-            contentScale = ContentScale.Fit,
+            contentDescription = stringResource(id = R.string.user_avatar),
+            contentScale = ContentScale.Crop,
         )
     }
 }
