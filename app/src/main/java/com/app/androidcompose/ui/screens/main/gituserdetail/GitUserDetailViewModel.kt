@@ -1,13 +1,15 @@
 package com.app.androidcompose.ui.screens.main.gituserdetail
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.app.androidcompose.support.extensions.toNavModel
 import com.app.androidcompose.support.util.DispatchersProvider
 import com.app.androidcompose.ui.base.BaseViewModel
 import com.app.androidcompose.ui.base.ErrorState
 import com.app.androidcompose.ui.mapper.GitUserDetailUiMapper
 import com.app.androidcompose.ui.models.GitUserDetailUiModel
+import com.app.androidcompose.ui.screens.main.MainDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
@@ -15,13 +17,16 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import leegroup.module.domain.models.GitUserDetailModel
 import leegroup.module.domain.usecases.gituser.GetGitUserDetailLocalUseCase
 import leegroup.module.domain.usecases.gituser.GetGitUserDetailRemoteUseCase
 import timber.log.Timber
+import javax.inject.Inject
 
 @HiltViewModel
 class GitUserDetailViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val dispatchersProvider: DispatchersProvider,
     private val getGitUserDetailLocalUseCase: GetGitUserDetailLocalUseCase,
     private val getGitUserDetailRemoteUseCase: GetGitUserDetailRemoteUseCase,
@@ -31,9 +36,15 @@ class GitUserDetailViewModel @Inject constructor(
     private val _uiModel = MutableStateFlow(GitUserDetailUiModel())
     val uiModel = _uiModel.asStateFlow()
 
-    fun handleAction(action: GitUserDetailAction) {
-        when (action) {
-            is GitUserDetailAction.SetUserLogin -> setUserLogin(action.login)
+    init {
+        loadFromSavedStateHandle()
+    }
+
+    private fun loadFromSavedStateHandle() {
+        viewModelScope.launch(dispatchersProvider.main) {
+            val navModel =
+                savedStateHandle.toNavModel<MainDestination.GitUserDetail.GitUserDetailNav>()
+            setUserLogin(navModel.login)
         }
     }
 

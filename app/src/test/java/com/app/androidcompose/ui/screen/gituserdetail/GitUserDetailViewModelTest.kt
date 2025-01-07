@@ -1,12 +1,13 @@
 package com.app.androidcompose.ui.screen.gituserdetail
 
+import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.app.androidcompose.MockUtil
 import com.app.androidcompose.support.CoroutineTestRule
 import com.app.androidcompose.ui.base.ErrorState
 import com.app.androidcompose.ui.mapper.GitUserDetailUiMapper
 import com.app.androidcompose.ui.models.GitUserDetailUiModel
-import com.app.androidcompose.ui.screens.main.gituserdetail.GitUserDetailAction
+import com.app.androidcompose.ui.screens.main.MainDestination
 import com.app.androidcompose.ui.screens.main.gituserdetail.GitUserDetailViewModel
 import io.kotest.matchers.shouldBe
 import io.mockk.every
@@ -17,6 +18,7 @@ import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import leegroup.module.data.util.JsonUtil
 import leegroup.module.domain.exceptions.NoConnectivityException
 import leegroup.module.domain.models.GitUserDetailModel
 import leegroup.module.domain.usecases.gituser.GetGitUserDetailLocalUseCase
@@ -30,6 +32,7 @@ class GitUserDetailViewModelTest {
     @get:Rule
     val coroutinesRule = CoroutineTestRule()
 
+    private lateinit var mockSavedStateHandle: SavedStateHandle
     private val mockLocalUseCase: GetGitUserDetailLocalUseCase = mockk()
     private val mockRemoteUseCase: GetGitUserDetailRemoteUseCase = mockk()
     private val mockUiMapper: GitUserDetailUiMapper = mockk()
@@ -61,13 +64,19 @@ class GitUserDetailViewModelTest {
 
     @Before
     fun setUp() {
+        val nav = MainDestination.GitUserDetail.GitUserDetailNav(userLogin)
+        mockSavedStateHandle = SavedStateHandle(JsonUtil.encodeToMap(nav))
+        every { mockUiMapper.mapToUiModel(any(), any()) } returns gitUserDetailUiModel
+    }
+
+    private fun initViewModel() {
         viewModel = GitUserDetailViewModel(
+            savedStateHandle = mockSavedStateHandle,
             coroutinesRule.testDispatcherProvider,
             mockLocalUseCase,
             mockRemoteUseCase,
             mockUiMapper
         )
-        every { mockUiMapper.mapToUiModel(any(), any()) } returns gitUserDetailUiModel
     }
 
     @Test
@@ -75,11 +84,15 @@ class GitUserDetailViewModelTest {
         every { mockLocalUseCase(userLogin) } returns flowOf(gitUserDetailModel)
         every { mockRemoteUseCase(userLogin) } returns flowOf(gitUserDetailModel)
 
-        viewModel.handleAction(GitUserDetailAction.SetUserLogin(userLogin))
+        initViewModel()
 
         viewModel.uiModel.test {
             val updatedModel = expectMostRecentItem()
-            assertEquals("Expected UI model to match mapped UI model", gitUserDetailUiModel, updatedModel)
+            assertEquals(
+                "Expected UI model to match mapped UI model",
+                gitUserDetailUiModel,
+                updatedModel
+            )
         }
 
         verify { mockLocalUseCase(userLogin) }
@@ -91,7 +104,7 @@ class GitUserDetailViewModelTest {
         every { mockLocalUseCase(userLogin) } returns flowOf()
         every { mockRemoteUseCase(userLogin) } returns flow { throw RuntimeException("Remote fetch error") }
 
-        viewModel.handleAction(GitUserDetailAction.SetUserLogin(userLogin))
+        initViewModel()
 
         viewModel.error.test {
             val errorState = expectMostRecentItem()
@@ -107,7 +120,7 @@ class GitUserDetailViewModelTest {
         every { mockRemoteUseCase(userLogin) } returns flowOf(gitUserDetailModel)
         every { mockLocalUseCase(userLogin) } returns flow { throw RuntimeException("Remote fetch error") }
 
-        viewModel.handleAction(GitUserDetailAction.SetUserLogin(userLogin))
+        initViewModel()
 
         viewModel.error.test {
             val errorState = expectMostRecentItem()
@@ -123,11 +136,15 @@ class GitUserDetailViewModelTest {
         every { mockLocalUseCase(userLogin) } returns flowOf(gitUserDetailModel)
         every { mockRemoteUseCase(userLogin) } returns flow { throw RuntimeException("Remote fetch error") }
 
-        viewModel.handleAction(GitUserDetailAction.SetUserLogin(userLogin))
+        initViewModel()
 
         viewModel.uiModel.test {
             val updatedModel = expectMostRecentItem()
-            assertEquals("Expected UI model to match mapped UI model", gitUserDetailUiModel, updatedModel)
+            assertEquals(
+                "Expected UI model to match mapped UI model",
+                gitUserDetailUiModel,
+                updatedModel
+            )
         }
         verify { mockLocalUseCase(userLogin) }
         verify { mockRemoteUseCase(userLogin) }
@@ -142,7 +159,7 @@ class GitUserDetailViewModelTest {
         every { mockRemoteUseCase(userLogin) } returns flowOf(remoteModel)
         every { mockUiMapper.mapToUiModel(any(), eq(remoteModel)) } returns remoteUiModel
 
-        viewModel.handleAction(GitUserDetailAction.SetUserLogin(userLogin))
+        initViewModel()
 
         viewModel.uiModel.test {
             val updatedModel = expectMostRecentItem()
@@ -160,7 +177,7 @@ class GitUserDetailViewModelTest {
             throw MockUtil.apiError
         }
 
-        viewModel.handleAction(GitUserDetailAction.SetUserLogin(userLogin))
+        initViewModel()
         viewModel.onErrorConfirmation(MockUtil.apiErrorState)
         verify(exactly = 2) { mockRemoteUseCase(userLogin) }
     }
@@ -172,7 +189,7 @@ class GitUserDetailViewModelTest {
             throw NoConnectivityException
         }
 
-        viewModel.handleAction(GitUserDetailAction.SetUserLogin(userLogin))
+        initViewModel()
         viewModel.onErrorConfirmation(ErrorState.Network())
         verify(exactly = 2) { mockRemoteUseCase(userLogin) }
     }
@@ -184,7 +201,7 @@ class GitUserDetailViewModelTest {
             throw MockUtil.apiError
         }
 
-        viewModel.handleAction(GitUserDetailAction.SetUserLogin(userLogin))
+        initViewModel()
         viewModel.onErrorDismissClick(MockUtil.apiErrorState)
         viewModel.error.test {
             expectMostRecentItem() shouldBe ErrorState.None
@@ -198,7 +215,7 @@ class GitUserDetailViewModelTest {
             throw RuntimeException()
         }
 
-        viewModel.handleAction(GitUserDetailAction.SetUserLogin(userLogin))
+        initViewModel()
         viewModel.onErrorConfirmation(ErrorState.Common)
         verify(exactly = 1) { mockRemoteUseCase(userLogin) }
     }

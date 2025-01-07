@@ -16,8 +16,7 @@ import leegroup.module.domain.exceptions.ServerException
 import retrofit2.HttpException
 import retrofit2.Response
 
-@OptIn(ExperimentalTypeInference::class)
-fun <T> flowTransform(@BuilderInference block: suspend FlowCollector<T>.() -> T) = flow {
+fun <T> flowTransform(block: suspend FlowCollector<T>.() -> T) = flow {
     runCatching { block() }
         .onSuccess { result -> emit(result) }
         .onFailure { exception -> throw exception.mapError() }
